@@ -3,11 +3,13 @@ const mongoose = require('mongoose');
 const Review = require('./review')
 const { Schema } = mongoose;
 
+//image schema for manipulating images
 const imageSchema = new Schema({
         url: String,
         filename: String
 });
 
+//virtual - we dont need to query db to transform image size since images are already stored in Mongo
 imageSchema.virtual('thumbnail').get(function () {
     return this.url.replace('/upload', '/upload/w_100')
 });

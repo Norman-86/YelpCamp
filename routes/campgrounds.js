@@ -11,7 +11,7 @@ router.route('/')
 //display all campgrounds
 .get(catchAsync(campgrounds.index))
 //adding a campground
-    .post(isLoggedIn, upload.array('image'), validateCampground, catchAsync(campgrounds.createCampground))
+.post(isLoggedIn, upload.array('image'), validateCampground, catchAsync(campgrounds.createCampground))
 //display the form for adding a campground
 router.get('/new', isLoggedIn, campgrounds.renderNewForm);
 
