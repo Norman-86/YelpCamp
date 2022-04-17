@@ -1,7 +1,7 @@
 const Campground = require('../models/campground');
 const ExpressError = require('../utilities/ExpressError');
 const { campgroundSchema, reviewSchema } = require('../schemas.js');
-const Review = require('../models/review'); 
+const Review = require('../models/review');
 
 // login middleware using passport method
 module.exports.isLoggedIn = (req, res, next) => {
@@ -32,7 +32,7 @@ module.exports.isAuthor = async (req, res, next) => {
         return res.redirect(`/campgrounds/${id}`)
     }
     next()
-}; 
+};
 
 //middleware to ensure you're the author in order to delete a review
 module.exports.isReviewAuthor = async (req, res, next) => {
@@ -43,7 +43,7 @@ module.exports.isReviewAuthor = async (req, res, next) => {
         return res.redirect(`/campgrounds/${id}`)
     }
     next()
-}; 
+};
 
 //reviews validation middleware
 module.exports.validateReview = (req, res, next) => {
@@ -55,3 +55,4 @@ module.exports.validateReview = (req, res, next) => {
         next()
     }
 };
+

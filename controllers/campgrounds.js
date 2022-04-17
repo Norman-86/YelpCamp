@@ -13,7 +13,7 @@ module.exports.renderNewForm = (req, res) => {
     res.render('campgrounds/new')
 };
 
-module.exports.createCampground = async (req, res) => {
+module.exports.createCampground = async (req, res, next) => {
     const geoData = await geocoder.forwardGeocode({
         query: req.body.campground.location,
         limit: 1
@@ -55,10 +55,10 @@ module.exports.editCampground = async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findByIdAndUpdate(id, {...req.body.campground });
     const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
-    campground.images.push(...imgs); 
+    campground.images.push(...imgs);
     await campground.save();
     if (req.body.deleteImages){
-        for (let filename of req.body.deleteImages){
+        for(let filename of req.body.deleteImages){
             await cloudinary.uploader.destroy(filename);
         }
         await campground.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } })
@@ -73,3 +73,6 @@ module.exports.deleteCampground = async (req, res) => {
     req.flash('success', 'Successfully deleted campground');
     res.redirect('/campgrounds');
 };
+
+
+
