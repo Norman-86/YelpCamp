@@ -30,16 +30,19 @@ const seedDB = async () => {
             price,
             geometry: {
                 type: "Point",
-                coordinates: [-122.8949, 47.045]
+                coordinates: [
+                    cities[random1000].longitude,
+                    cities[random1000].latitude
+                ]
             },
             images: [
                 {
-                    url: 'https://res.cloudinary.com/the-park/image/upload/v1647002769/YelpCamp/wuk2swae68ubh6jly8ms.jpg',
-                    filename: 'YelpCamp/wuk2swae68ubh6jly8ms',
+                    url: 'https://res.cloudinary.com/the-park/image/upload/v1646996612/YelpCamp/dnqiqbwmbbivbrvezu7k.jpg',
+                    filename: 'YelpCamp/dnqiqbwmbbivbrvezu7k',
                 },
                 {
-                    url: 'https://res.cloudinary.com/the-park/image/upload/v1647002769/YelpCamp/y8tkxrvwqpewanetxqzo.jpg',
-                    filename: 'YelpCamp/y8tkxrvwqpewanetxqzo',
+                    url: 'https://res.cloudinary.com/the-park/image/upload/v1646994877/YelpCamp/wdefw3runt1t8jsr7vte.jpg',
+                    filename: 'YelpCamp/wdefw3runt1t8jsr7vte.jpg',
                 }
             ]
         });
