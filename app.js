@@ -2,8 +2,6 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
 };
 
-console.log(process.env.SECRET);
-
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -14,10 +12,14 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const mongoSanitize = require('express-mongo-sanitize');
+// const helmet = require("helmet");
 const User = require('./models/user');
 const userRoutes = require('./routes/users');
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
+
+
 
 //database connection 
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {
@@ -37,21 +39,26 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use(mongoSanitize({replaceWith: '_'}))
+// app.use(mongoSanitize());
 app.engine('ejs', ejsMate);
 
 //session configurations
 const sessionConfig = {
+    name: 'session',
     secret: 'thismustbeaverygoodsecret',
     resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
+        // secure: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 14,
         maxAge: 1000 * 60 * 60 * 24 * 14
     }
 };
 app.use(session(sessionConfig));
 app.use(flash());
+// app.use(helmet({contentSecurityPolicy:false}));
 
 //passport configurations
 app.use(passport.initialize());
